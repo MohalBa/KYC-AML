@@ -1,4 +1,4 @@
-#	KYC - Know Your Customer
+#	KYC/AML - Know Your Customer
 ## A Decentralized KYC Verification Process for Banks.
 
 ### Smart Contract Flow
@@ -35,19 +35,19 @@ An Ethereum network is a blockchain built of multiple nodes. These nodes can exi
 
 To connect to a network, you need to be aware of the chain ID of that network because you can only refer to the network using the network's unique chain ID. After this, you need to become a node for that network. For this, you need to download an Ethereum client on your machine and then connect to the network through that. This is important because you can only connect to a network as an Ethereum client. 
 
-***A.	The `genesis.json` file present in the `kyc-ethereum-network` contains all the information needed to create a genesis block for the blockchain network. Run the below command inside `kyc-ethereum-network`. This command will create a private chain data for blockchain.***
+*** A.	The `genesis.json` file present in the `kyc-ethereum-network` contains all the information needed to create a genesis block for the blockchain network. Run the below command inside `kyc-ethereum-network`. This command will create a private chain data for blockchain.***
 
 >	geth --datadir ./datadir init ./genesis.json
 
 The above command will generate the datadir folder.
 
-***B.	Start geth client console using below command -***
+*** B.	Start geth client console using below command -***
 
 >	geth --datadir ./datadir/ --networkid 2002 --rpc --rpcport 8545 --allow-insecure-unlock console
 
 2002 is our network id and port is 8545.
 
-***C.	Create eth accounts using below api’s , I have created 2 eth accounts with passwords set as below -***
+*** C.	Create eth accounts using below api’s , I have created 2 eth accounts with passwords set as below -***
 
 >	personal.newAccount("admin")
 
@@ -61,7 +61,7 @@ The above command will generate the datadir folder.
 
 When the mining starts we need to unlock the accounts.
 
-***D.	Start the mining process using the below command and keep the mining process running as we have to deploy KYC.sol on to this network.***
+*** D.	Start the mining process using the below command and keep the mining process running as we have to deploy KYC.sol on to this network.***
 
 >	miner.start()
 
@@ -110,7 +110,7 @@ DBS-0x2afcb67323d00536e6a8891deb667f38a34414f1
 KOTAK-0x937f6af0edeaa4f912647e9a57568a2a97559fba
 
 
-***2. Unlock admin account and execute the following to create the banks***
+*** 2. Unlock admin account and execute the following to create the banks***
 
 >	kyc.addBank(“HDFC”,”0xd71e9de2a1a47a4ff58558753551e87e55515d31”,”001”)
 
@@ -120,25 +120,25 @@ KOTAK-0x937f6af0edeaa4f912647e9a57568a2a97559fba
 
 >	kyc.addBank(“KOTAK”,”0x937f6af0edeaa4f912647e9a57568a2a97559fba”,”004”)
 
-***3. Unlock bank accounts and execute the following to upvote a bank-Upvote for DBS from HDFC, IDFC, KOTAK***
+*** 3. Unlock bank accounts and execute the following to upvote a bank-Upvote for DBS from HDFC, IDFC, KOTAK***
 
 >	kyc.upvotesForBank(“0x2afcb67323d00536e6a8891deb667f38a34414f1”)
 
 Rating of a bank goes up after upvotes from the other banks.
 
-***4. Unlock DBS bank account and execute the below command to add kyc request of a customer***
+*** 4. Unlock DBS bank account and execute the below command to add kyc request of a customer***
 
 >	kyc.addRequest(“sushma”,”sushmakychash”)
 
 Since the rating of bank DBS is higher DBS can add this customer.
 
-***5. Unlock DBS bank account and execute the below command to add kyc request of a customer***
+*** 5. Unlock DBS bank account and execute the below command to add kyc request of a customer***
 
 >	kyc.addCustomer(“sushma”,”sushmakychash”)
 
 At this point other banks can vote for this customer to verify the validity of the KYC document that this customer has submitted.
 
-***6. Upvote customer to validate the KYC information from different banks-Upvote from HDFC, IDFC, KOTAK***
+*** 6. Upvote customer to validate the KYC information from different banks-Upvote from HDFC, IDFC, KOTAK***
 
 Unlock each account - HDFC, IDFC, KOTAK and give a vote to the customer KYC information.
 
@@ -146,32 +146,30 @@ Unlock each account - HDFC, IDFC, KOTAK and give a vote to the customer KYC info
 
 Once the customer has enough votes he/she will be added to the valid KYC list.
 
-***7. Verify valid KYC customers***
+*** 7. Verify valid KYC customers***
 
 >	kyc.showFinalCustomer()
 
-***8. Get ratings of a bank***
+*** 8. Get ratings of a bank***
 
 >	kyc.getBankRating(“0x2afcb67323d00536e6a8891deb667f38a34414f1”)
 
-***9. Admin can remove a bank***
+*** 9. Admin can remove a bank***
 
 >	kyc.removeBank(“0xd71e9de2a1a47a4ff58558753551e87e55515d31”)
 
-***10. Get the customer rating***
+*** 10. Get the customer rating***
 
 >	kyc.getCustomerRating(“sushma”)
 
-***11. Set password for a customer***
+*** 11. Set password for a customer***
 >	kyc.setPasswordForCustomerData(“sushma”,”password”)
 
-***12. Update customer KYC information***
+*** 12. Update customer KYC information***
 >	kyc.modifyCustomer(“sushma”,”password”,”newSushmaKYCHash”)
 
-***13. Retrieve customer KYC history***
+*** 13. Retrieve customer KYC history***
 >	kyc.retrieveAccessHistory(“sushma”)
 
-***14. Remove a customer in case of invalid KYC***
+*** 14. Remove a customer in case of invalid KYC***
 >	kyc.removeCustomer(“sushma”)
-
-Please check out [this article](https://medium.com/@sushmarajuvaradaiah/a-decentralised-kyc-verification-process-for-banks-f47bee0a5a9f) for the details of the KYC verification process.
